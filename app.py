@@ -47,7 +47,7 @@ def apply_custom_css():
             font-size: 16px;
             margin-bottom: 10px;
         }
-        .stNumberInput input {
+        .stNumberInput > div > input {
             border: 2px solid #ff6347;
             background-color: #ffffff;
             padding: 10px;
@@ -114,7 +114,9 @@ def main():
         event_date = st.date_input("Event Date", datetime.today())
         event_description = st.text_area("Event Description")
         event_category = st.selectbox("Event Category", ["Business", "Personal", "Conference", "Wedding"])
-        event_budget = st.number_input("Event Budget", min_value=0)
+        
+        # Correctly place the Event Budget field
+        event_budget = st.number_input("Event Budget", min_value=0, format="%d", step=1)
         
         submitted = st.form_submit_button("Add Event")
         if submitted:
@@ -124,7 +126,7 @@ def main():
                 'date': event_date.strftime('%Y-%m-%d'),
                 'description': event_description,
                 'category': event_category,
-                'budget': event_budget,
+                'budget': event_budget,  # Store the event budget
                 'rsvp': [],
                 'attendance': [],
                 'planners': [],
